@@ -1,0 +1,49 @@
+# Site settings
+title: 庄津津的技术博客
+SEOTitle: 庄津津的技术博客
+description: '众里寻他千百度，蓦然回首，那人却在灯火阑珊处'
+url: 'https://zhuangjinjin.github.io'
+baseurl: ''
+email: 'zhuangjinjin90@gmail.com'
+# google_analytics: 'UA-XXXXXX-X'
+# disqus_shortname: 'your-disqus-name'
+
+author:
+  name: 'zhuangjinjin'
+  RSS: true
+  email: zhuangjinjin90@gmail.com
+  facebook_username: zhuangjinjin
+  github_username: zhuangjinjin
+  weibo_username: ukuz90
+
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+        layout: 'post'
+
+# Build settings
+destination: _site
+paginate: 10
+permalink: /:year/:title/
+markdown: kramdown
+highlighter: rouge
+
+sass:
+    sass_dir: _sass
+    style: compressed
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+plugins: ['jekyll-paginate']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
