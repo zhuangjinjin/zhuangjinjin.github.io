@@ -30,6 +30,8 @@ paginate: 10
 permalink: /:year/:title/
 markdown: kramdown
 highlighter: rouge
+permalink: pretty
+
 
 sass:
     sass_dir: _sass
@@ -42,8 +44,8 @@ kramdown:
     span:
       line_numbers: false
     block:
-      # line_numbers: true
-      # start_line: 1
+      line_numbers: true
+      start_line: 1
       
 
 
