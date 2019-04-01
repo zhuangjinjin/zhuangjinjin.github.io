@@ -87,7 +87,7 @@ public void processBlackListEvent(BlackListEvent event) {
 
 当使用异步化事件需要注意如下限制：
 
-* 如果事件监听器抛出异常，这个异常是不会传播给调用者，也就是调用者不会捕获到这个异常，具体细节可以查看`org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler`
+* 如果事件监听器抛出异常，这个异常是不会传播给调用者，也就是调用者不会捕获到这个异常，具体细节可以查看`AsyncUncaughtExceptionHandler`
 * 此类事件监听器无法发送回复，如果有这个需求，请注入`ApplicationEventPublisher`手动发送事件
 
 #### 顺序事件监听器
@@ -113,7 +113,7 @@ public void onPersonCreated(EntityCreatedEvent<Person> event) {
 }
 ```
 
-在某些情况下，如果所有事件的事件源都是同一种结构体，那操作起来可能会有点繁琐。这种情况下，你可以实现`org.springframework.core.ResolvableTypeProvider`来引导框架提供超出运行时环境提供的范围。
+在某些情况下，如果所有事件的事件源都是同一种结构体，那操作起来可能会有点繁琐。这种情况下，你可以实现`ResolvableTypeProvider`来引导框架提供超出运行时环境提供的范围。
 
 ```java
 public class EntityCreatedEvent<T> extends ApplicationEvent implements ResolvableTypeProvider {
@@ -134,7 +134,7 @@ public class EntityCreatedEvent<T> extends ApplicationEvent implements Resolvabl
 
 #### 事件监听器的注册
 
-​	上下文在启动的时候。初始化完整个bean工厂，并实例化所有单例bean，会把调用SmartInitializingSingleton#afterSingletonsInstantiated()。
+​	上下文在启动的时候。初始化完整个bean工厂，并实例化所有单例bean，会把调用SmartInitializingSingleton的afterSingletonsInstantiated()方法。
 
 ​	EventListenerMethodProcessor把EventListener注解的Method方法通过简单工厂方法包装成ApplicationListenerMethodAdapter，然后加入到AbstractApplicationContext中
 
@@ -192,7 +192,8 @@ public class AbstractApplicationContext {
 		Assert.notNull(listener, "ApplicationListener must not be null");
 		if (this.applicationEventMulticaster != null) {
           	//向事件分发器注册
-			this.applicationEventMulticaster.addApplicationListener(listener);
+			this.applicationEventMulticaster
+              .addApplicationListener(listener);
 		}
 		this.applicationListeners.add(listener);
 	}
@@ -201,7 +202,7 @@ public class AbstractApplicationContext {
 
 #### 异步机制
 
-Spring异步是通过aop实现的，缺省的织入模式是`AdviceMode.PROXY`。会自动导入`org.springframework.scheduling.annotation.AsyncAnnotationBeanPostProcessor`。`AsyncAnnotationBeanPostProcessor`持有`AsyncAnnotationAdvisor`对象。`AsyncAnnotationAdvisor`会创建一个`AnnotationAsyncExecutionInterceptor`拦截器，所有`@Async`的方法，在调用的时候，都会被这个拦截器拦截，并拿到一个`AsyncTaskExecutor`线程池，在线程池中执行原方法。
+Spring异步是通过aop实现的，缺省的织入模式是`AdviceMode.PROXY`。会自动导入`AsyncAnnotationBeanPostProcessor`。`AsyncAnnotationBeanPostProcessor`持有`AsyncAnnotationAdvisor`对象。`AsyncAnnotationAdvisor`会创建一个`AnnotationAsyncExecutionInterceptor`拦截器，所有`@Async`的方法，在调用的时候，都会被这个拦截器拦截，并拿到一个`AsyncTaskExecutor`线程池，在线程池中执行原方法。
 
 带`AsyncAnnotationAdvisor`的proxy加载过程
 
