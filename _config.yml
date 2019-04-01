@@ -30,8 +30,6 @@ paginate: 10
 permalink: /:year/:title/
 markdown: kramdown
 highlighter: rouge
-permalink: pretty
-
 
 sass:
     sass_dir: _sass
