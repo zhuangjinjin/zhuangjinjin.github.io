@@ -134,9 +134,9 @@ public class EntityCreatedEvent<T> extends ApplicationEvent implements Resolvabl
 
 #### 事件监听器的注册
 
-​	上下文在启动的时候。初始化完整个bean工厂，并实例化所有单例bean，会把调用SmartInitializingSingleton的afterSingletonsInstantiated()方法。
+	上下文在启动的时候。初始化完整个bean工厂，并实例化所有单例bean，会把调用SmartInitializingSingleton的afterSingletonsInstantiated()方法。
 
-​	EventListenerMethodProcessor把EventListener注解的Method方法通过简单工厂方法包装成ApplicationListenerMethodAdapter，然后加入到AbstractApplicationContext中
+	EventListenerMethodProcessor把EventListener注解的Method方法通过简单工厂方法包装成ApplicationListenerMethodAdapter，然后加入到AbstractApplicationContext中
 
 ![EventListener注册时序图]({{site.baseurl}}/images/EventListener注册时序图.png)
 
@@ -208,7 +208,7 @@ Spring异步是通过aop实现的，缺省的织入模式是`AdviceMode.PROXY`�
 
 ![AsyncAnnotationAdvisor的proxy加载时序图]({{site.baseurl}}/images/Async时序图.png)
 
-`@Order`顺序事件监听器原理
+#### 顺序事件监听器原理
 
 ```java
 public class ApplicationListenerMethodAdapter implements GenericApplicationListener {
