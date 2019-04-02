@@ -180,23 +180,22 @@ AbstractApplicationContext持有一个事件分发器。通过上下文把事件
 
 ```java
 public class AbstractApplicationContext {
-  	...
-	@Nullable
-	private ApplicationEventMulticaster applicationEventMulticaster;
+    ...
+    @Nullable
+    private ApplicationEventMulticaster applicationEventMulticaster;
 
-	private final Set<ApplicationListener<?>> applicationListeners = new LinkedHashSet<>();
-  	...
-    
+    private final Set<ApplicationListener<?>> applicationListeners = new LinkedHashSet<>();
+    ...
+
     @Override
-	public void addApplicationListener(ApplicationListener<?> listener) {
-		Assert.notNull(listener, "ApplicationListener must not be null");
-		if (this.applicationEventMulticaster != null) {
-          	//向事件分发器注册
-			this.applicationEventMulticaster
-              .addApplicationListener(listener);
-		}
-		this.applicationListeners.add(listener);
-	}
+    public void addApplicationListener(ApplicationListener<?> listener) {
+    Assert.notNull(listener, "ApplicationListener must not be null");
+        if (this.applicationEventMulticaster != null) {
+            //向事件分发器注册
+            this.applicationEventMulticaster.addApplicationListener(listener);
+        }
+        this.applicationListeners.add(listener);
+    }
 }
 ```
 
@@ -212,7 +211,7 @@ Spring异步是通过aop实现的，缺省的织入模式是`AdviceMode.PROXY`�
 
 ```java
 public class ApplicationListenerMethodAdapter implements GenericApplicationListener {
- 	...
+    ...
     public ApplicationListenerMethodAdapter(String beanName, Class<?> targetClass, Method method) {
         ...
         //事件监听器如果没有配置@Order，默认是0
@@ -220,9 +219,9 @@ public class ApplicationListenerMethodAdapter implements GenericApplicationListe
     }
     ...
     private int resolveOrder(Method method) {
-		Order ann = AnnotatedElementUtils.findMergedAnnotation(method, Order.class);
-		return (ann != null ? ann.value() : 0);
-	}
+        Order ann = AnnotatedElementUtils.findMergedAnnotation(method, Order.class);
+        return (ann != null ? ann.value() : 0);
+    }
 }
 ```
 
