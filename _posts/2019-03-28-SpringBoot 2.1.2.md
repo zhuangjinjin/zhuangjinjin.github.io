@@ -201,7 +201,9 @@ public class AbstractApplicationContext {
 
 #### 异步机制
 
-Spring异步是通过aop实现的，缺省的织入模式是`AdviceMode.PROXY`。会自动导入`AsyncAnnotationBeanPostProcessor`。`AsyncAnnotationBeanPostProcessor`持有`AsyncAnnotationAdvisor`对象。`AsyncAnnotationAdvisor`会创建一个`AnnotationAsyncExecutionInterceptor`拦截器，所有`@Async`的方法，在调用的时候，都会被这个拦截器拦截，并拿到一个`AsyncTaskExecutor`线程池，在线程池中执行原方法。
+Spring异步是通过aop实现的，缺省的织入模式是`AdviceMode.PROXY`。会自动导入`AsyncAnnotationBeanPostProcessor`。
+
+`AsyncAnnotationBeanPostProcessor`持有`AsyncAnnotationAdvisor`对象。`AsyncAnnotationAdvisor`会创建一个`AnnotationAsyncExecutionInterceptor`拦截器，所有`@Async`的方法，在调用的时候，都会被这个拦截器拦截，并拿到一个`AsyncTaskExecutor`线程池，在线程池中执行原方法。
 
 带`AsyncAnnotationAdvisor`的proxy加载过程
 
