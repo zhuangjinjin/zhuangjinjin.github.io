@@ -6,8 +6,12 @@
 
 /* Modifications */
 
-pre.highlight,
+// pre.highlight,
 .highlight pre {
+  padding: 1px;
+  overflow-x: hidden;
+}
+pre.highlight {
   padding: 5px;
   overflow-x: auto;
 }
